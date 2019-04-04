@@ -112,23 +112,12 @@ describe('SCENARIO #1', function () {
   it('should calculate the expected amounts for scenario #1', function () {
     const shoppingCart = ShoppingCart.initialize(pricingRules);
 
-    // Items Added:
-    // 3 x Unlimited 1 GB
-    // 1 x Unlimited 5 GB
     shoppingCart.add(productSmall, 3);
     shoppingCart.add(productLarge, 1);
 
-    // Expected Cart Total:
-    // $94.70
     expect(shoppingCart.getTotalPrice()).to.equal(94.7);
 
-    // log to console
-    shoppingCart.getAllProducts()
-      .forEach(({ product, quantity }) => {
-        console.log(`${product.code} ${product.name} $${product.price} (QTY x ${quantity})`)
-      });
-    console.log("=========================================");
-    console.log("Cart Total: $", shoppingCart.getTotalPrice())
+    LogShoppingCart(shoppingCart);
   });
 });
 
@@ -141,14 +130,7 @@ describe('SCENARIO #2', function () {
 
     expect(shoppingCart.getTotalPrice()).to.equal(209.4);
 
-    // log to console
-    shoppingCart
-      .getAllProducts()
-      .forEach(({ product, quantity }) => {
-        console.log(`${product.code} ${product.name} $${product.price} (QTY x ${quantity})`)
-      });
-    console.log("=========================================");
-    console.log("Cart Total: $", shoppingCart.getTotalPrice())
+    LogShoppingCart(shoppingCart);
   });
 });
 
@@ -159,15 +141,30 @@ describe('SCENARIO #3', function () {
     shoppingCart.add(productSmall, 1);
     shoppingCart.add(productMedium, 2);
 
-    // expect(shoppingCart.getTotalPrice()).to.equal(84.7);
+    expect(shoppingCart.getTotalPrice()).to.equal(84.7);
 
-    // log to console
-    shoppingCart
-      .getAllProducts()
-      .forEach(({ product, quantity }) => {
-        console.log(`${product.code} ${product.name} $${product.price} (QTY x ${quantity})`)
-      });
-    console.log("=========================================");
-    console.log("Cart Total: $", shoppingCart.getTotalPrice())
+    LogShoppingCart(shoppingCart);
   });
 });
+
+function LogShoppingCart(shoppingCart) {
+  console.log("Items:");
+  shoppingCart
+    .getAllProducts()
+    .forEach(({ product, quantity }) => {
+      console.log(`${product.code} ${product.name} $${product.price} (QTY x ${quantity})`)
+    });
+
+  const freebies = shoppingCart.getFreebies();
+  if (freebies.length) {
+    console.log("\n Free:");
+    shoppingCart
+      .getFreebies()
+      .forEach((product) => {
+        console.log(`${product.code} ${product.name}`)
+      });
+  }
+
+  console.log("=======================================");
+  console.log("Cart Total: $", shoppingCart.getTotalPrice());
+}
