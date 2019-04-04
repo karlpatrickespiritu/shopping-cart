@@ -1,0 +1,24 @@
+{
+  "name": "shopping-card",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "npm run test-unit",
+    "test-unit": "./node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=test ./node_modules/.bin/mocha ./src/tests/unit/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karlpatrickespiritu/shopping-cart"
+  },
+  "author": "Karl Patrick Espiritu",
+  "license": "MIT",
+  "dependencies": {
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "cross-env": "^3.2.4",
+    "expect.js": "^0.3.1",
+    "mocha": "^3.5.3"
+  }
+}
