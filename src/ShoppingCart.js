@@ -30,13 +30,13 @@ const ShoppingCart = (pricingRules) => {
       if (priceRule) {
         priceRule.discounts.forEach((discount) => {
           // get the discounted item price based on the price rule
-          const itemPrice = discount.getDiscountedItemPrice({ quantity });
+          const discountedItemPrice = discount.getDiscountedItemPrice({ quantity });
 
           // get the amount for the product
           const discountAmount = discount.getDiscount({ quantity });
 
           // calculate the total price
-          totalPrice += (itemPrice * quantity) - discountAmount;
+          totalPrice += (discountedItemPrice * quantity) - discountAmount;
         });
 
         return totalPrice
