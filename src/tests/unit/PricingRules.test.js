@@ -19,7 +19,7 @@ describe('`PricingRules.create()` unit test', function () {
     const rule = pricingRules.create({
       product,
       discounts: [{
-        description: "If you get 3 pieces, you only get to pay the 2. But only for the 1st month.",
+        description: "If you purchase 3 pieces, you only get to pay for 2 for the 1st month.",
 
         // dynamically set the discount amount depending on the set condition
         // for this one, if the quantity is >= 3 then less 1 item
@@ -37,14 +37,21 @@ describe('`PricingRules.create()` unit test', function () {
         },
 
         // dynamically set the discounted duration per product for a certain condition.
-        // for this one, discount duration will just be for a month.
+        // for this one, discount duration will just be for a month if 3 items were bought.
         getDiscountDuration: ({ quantity }) => {
-          return {
-            months: 1,
+          let duration = {
+            months: 0,
             weeks: 0,
             days: 0,
             hours: 0,
+          };
+
+          if (quantity >= 3) {
+            duration.months = 1;
+            return duration
           }
+
+          return duration
         },
       }]
     });
@@ -53,12 +60,13 @@ describe('`PricingRules.create()` unit test', function () {
     expect(rule.product.code).to.equal(product.code);
     expect(rule.discounts.length).to.equal(1);
 
-    const conditions = { quantity: 3 };
-    expect(rule.discounts[0].getDiscount(conditions)).to.equal(49.8);
-    expect(rule.discounts[0].getDiscountedItemPrice(conditions)).to.equal(24.90); // no price discount for this one
+    expect(rule.discounts[0].getDiscount({ quantity: 3 })).to.equal(49.8);
+    expect(rule.discounts[0].getDiscount({ quantity: 2 })).to.equal(0); // no discount if only 3 were bought
+
+    expect(rule.discounts[0].getDiscountedItemPrice({ quantity: 3 })).to.equal(24.90); // no price discount for this one
 
     // check duration
-    const duration = rule.discounts[0].getDiscountDuration({});
+    const duration = rule.discounts[0].getDiscountDuration({ quantity: 3});
     expect(duration.months).to.equal(1);
     expect(duration.weeks).to.equal(0);
     expect(duration.days).to.equal(0);

@@ -9,8 +9,13 @@ const PricingRules = () => {
     return { product, discounts }
   };
 
+  const getAll = () => {
+    return rules
+  };
+
   return {
     create,
+    getAll,
   }
 };
 
