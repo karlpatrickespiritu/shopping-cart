@@ -1,7 +1,7 @@
 'use strict';
 const uuidv4 = require('uuid/v4');
 
-const Products = (() => {
+const Products = () => {
   let items = [];
 
   const create = (item) => {
@@ -14,15 +14,14 @@ const Products = (() => {
     return items
   };
 
-  const clear = () => {
-    items = []
-  };
-
   return {
     create,
     getAll,
-    clear,
   }
-})();
+};
 
-module.exports = Products;
+module.exports = {
+  initialize: () => {
+    return Products()
+  }
+};
