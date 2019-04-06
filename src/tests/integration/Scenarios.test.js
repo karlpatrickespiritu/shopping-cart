@@ -14,15 +14,11 @@ const productMedium = products.getProductByCode("ult_medium");
 const product1GB = products.getProductByCode("1gb");
 
 // create a mock of the pricing rules
-const pricingRules = mock.CreatePricingRules({ productSmall, productLarge, productMedium, product1GB });
+const pricingRules = mock.CreatePricingRules(products);
 
 describe('SCENARIO #1', function () {
   it('should calculate the expected amounts for scenario #1', function () {
     const shoppingCart = ShoppingCart.initialize(pricingRules);
-
-    // get products
-    const productSmall = products.getProductByCode("ult_small");
-    const productLarge = products.getProductByCode("ult_large");
 
     // add products to cart
     shoppingCart.add(productSmall, 3);
@@ -40,10 +36,6 @@ describe('SCENARIO #2', function () {
   it('should calculate the expected amounts for scenario #2', function () {
     const shoppingCart = ShoppingCart.initialize(pricingRules);
 
-    // get products
-    const productSmall = products.getProductByCode("ult_small");
-    const productLarge = products.getProductByCode("ult_large");
-
     // add products to cart
     shoppingCart.add(productSmall, 2);
     shoppingCart.add(productLarge, 4);
@@ -60,10 +52,6 @@ describe('SCENARIO #3', function () {
   it('should calculate the expected amounts for scenario #3', function () {
     const shoppingCart = ShoppingCart.initialize(pricingRules);
 
-    // get products
-    const productSmall = products.getProductByCode("ult_small");
-    const productMedium = products.getProductByCode("ult_medium");
-
     // add products to cart
     shoppingCart.add(productSmall, 1);
     shoppingCart.add(productMedium, 2);
@@ -79,10 +67,6 @@ describe('SCENARIO #3', function () {
 describe('SCENARIO #4', function () {
   it('should calculate the expected amounts for scenario #4', function () {
     const shoppingCart = ShoppingCart.initialize(pricingRules);
-
-    // get products
-    const productSmall = products.getProductByCode("ult_small");
-    const product1GB = products.getProductByCode("1gb");
 
     // add products to cart
     shoppingCart.add(productSmall, 1);

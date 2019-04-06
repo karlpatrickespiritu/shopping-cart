@@ -35,7 +35,12 @@ function CreateProducts() {
   return products
 }
 
-function CreatePricingRules({ productSmall, productLarge,  productMedium, product1GB }) {
+function CreatePricingRules(products) {
+  const productSmall = products.getProductByCode("ult_small");
+  const productLarge = products.getProductByCode("ult_large");
+  const productMedium = products.getProductByCode("ult_medium");
+  const product1GB = products.getProductByCode("1gb");
+
   // create a pricing rule for this particular product
   const pricingRules = PricingRules.initialize();
 
