@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "nyc mocha --timeout=3000 ./src/tests/**/**/*.test.js"
+    "test": "nyc --reporter=html --reporter=text mocha --timeout=3000 ./src/tests/**/**/*.test.js"
   },
   "repository": {
     "type": "git",
