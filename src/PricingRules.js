@@ -1,21 +1,34 @@
 'use strict';
 
 const PricingRules = () => {
-  let rules = [];
+  let productRules = [];
+  let promoCodeRules = [];
 
-  const create = ({ product, discounts = [] }) => {
-    rules.push({ product, discounts });
+  const createProductRule = ({ product, discounts = [] }) => {
+    productRules.push({ product, discounts });
 
     return { product, discounts }
   };
 
-  const getAll = () => {
-    return rules
+  const createPromoCodeRule = (promoCodeRule) => {
+    promoCodeRules.push(promoCodeRule);
+
+    return promoCodeRule
+  };
+
+  const getProductRules = () => {
+    return productRules
+  };
+
+  const getPromoCodeRules = () => {
+    return promoCodeRules
   };
 
   return {
-    create,
-    getAll,
+    createProductRule,
+    createPromoCodeRule,
+    getProductRules,
+    getPromoCodeRules,
   }
 };
 

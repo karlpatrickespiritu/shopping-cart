@@ -4,7 +4,7 @@ const expect = require('expect.js');
 const Products = require('../../Products');
 const PricingRules = require('../../PricingRules');
 
-describe('`PricingRules.create()` unit test', function () {
+describe('`PricingRules.createProductRule()` unit test', function () {
   it('should add an item to the shopping cart', function () {
     // create a product first
     const products = Products.initialize();
@@ -16,7 +16,7 @@ describe('`PricingRules.create()` unit test', function () {
 
     // create a pricing rule for this particular product
     const pricingRules = PricingRules.initialize();
-    const rule = pricingRules.create({
+    const rule = pricingRules.createProductRule({
       product,
       discounts: [{
         description: "If you purchase 3 pieces, you only get to pay for 2 for the 1st month.",
@@ -71,5 +71,31 @@ describe('`PricingRules.create()` unit test', function () {
     expect(duration.weeks).to.equal(0);
     expect(duration.days).to.equal(0);
     expect(duration.hours).to.equal(0);
+  });
+});
+
+describe('`PricingRules.createPromoCodeRule()` unit test', function () {
+  it('should add an item to the shopping cart', function () {
+    // create a pricing rule for this particular product
+    const pricingRules = PricingRules.initialize();
+
+    // create promo code rule
+    const promoCode10Percent = {
+      codes: ["I<3AMAYSIM"],
+      getDiscount: () => {
+        return {
+          isPercentage: true,
+          percentage: .10
+        }
+      }
+    };
+
+    const rule = pricingRules.createPromoCodeRule([promoCode10Percent]);
+    expect(rule.length).to.equal(1);
+    expect(rule[0].codes[0]).to.equal("I<3AMAYSIM");
+    expect(rule[0].getDiscount()).to.eql({
+      isPercentage: true,
+      percentage: .10
+    });
   });
 });

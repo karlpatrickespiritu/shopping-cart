@@ -18,7 +18,7 @@ describe('`ShoppingCart.add()` unit test', function () {
 
     // create pricing rule
     const pricingRules = PricingRules.initialize();
-    pricingRules.create({
+    pricingRules.createProductRule({
       product: product,
       discounts: [{
         description: "sample price rule",
@@ -36,6 +36,18 @@ describe('`ShoppingCart.add()` unit test', function () {
       }]
     });
 
+    // create promo code rule
+    const promoCode10Percent = {
+      codes: ["I<3AMAYSIM"],
+      getDiscount: () => {
+        return {
+          isPercentage: true,
+          percentage: .10
+        }
+      }
+    };
+    pricingRules.createPromoCodeRule([promoCode10Percent]);
+
     // add to cart
     const shoppingCart = ShoppingCart.initialize(pricingRules);
     const quantity = 3;
@@ -46,5 +58,8 @@ describe('`ShoppingCart.add()` unit test', function () {
     expect(added.product.code).to.equal(item.code);
     expect(added.product.name).to.equal(item.name);
     expect(added.product.price).to.equal(item.price);
+
+    shoppingCart.applyPromoCode("I<3AMAYSIM");
+    shoppingCart.getTotalPrice()
   });
 });

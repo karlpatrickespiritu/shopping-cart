@@ -3,6 +3,7 @@
 const ShoppingCart = (pricingRules) => {
   let products = [];
   let freebies = [];
+  let promoCode = null;
 
   /**
    * Adds an item to the cart
@@ -33,7 +34,7 @@ const ShoppingCart = (pricingRules) => {
    */
   const getProductPriceRule = (product) => {
     return pricingRules
-      .getAll()
+      .getProductRules()
       .filter((ruleProduct) => ruleProduct.product.id === product.id)[0];
   };
 
@@ -67,10 +68,89 @@ const ShoppingCart = (pricingRules) => {
     });
 
     // round of to two decimal places
-    return Math.round(totalPrice * 100) / 100
+    totalPrice = Math.round(totalPrice * 100) / 100;
+
+    if (!promoCode) {
+      return totalPrice
+    }
+
+    // validate promo code, if not valid, then just return total price
+    const isCodeValid = isPromoCodeValid(promoCode);
+    if (!isCodeValid) {
+      return totalPrice
+    }
+
+    // apply promo code discount
+    const promoCodeDiscount = getPromoCodeDiscount(promoCode);
+
+    if (promoCodeDiscount.isPercentage) {
+      totalPrice = totalPrice - (totalPrice * promoCodeDiscount.percentage);
+    }
+
+    if (promoCodeDiscount.isFixed) {
+      totalPrice = totalPrice - promoCodeDiscount.amount;
+    }
+
+    // round of to two decimal places
+    return Math.round(totalPrice * 100) / 100;
   };
 
   /**
+   * return a boolean if the promo code is valid or not
+   * @param code
+   * @returns {boolean}
+   */
+  const isPromoCodeValid = (code) => {
+    let isCodeValid = false;
+
+    pricingRules
+      .getPromoCodeRules()
+      .forEach((promoCodeRule) => {
+        promoCodeRule.map((rule) => {
+          isCodeValid = rule.codes.filter((code) => code === promoCode).length;
+        })
+      });
+
+    return Boolean(isCodeValid)
+  };
+
+  /**
+   * returns the discounted price for a promo code
+   * @param promoCode
+   * @returns {*}
+   */
+  const getPromoCodeDiscount = (promoCode) => {
+    let discount = null;
+
+    pricingRules
+      .getPromoCodeRules()
+      .forEach((promoCodeRule) => {
+        promoCodeRule.map((rule) => {
+          const isCodeValid = rule.codes.filter((code) => code === promoCode).length;
+          if (isCodeValid) {
+            discount = rule.getDiscount()
+          }
+        })
+      });
+
+    return discount
+  };
+
+  /**
+   * return a product by code
+   * @param code
+   * @returns {*}
+   */
+  const getProductByCode = (code) => {
+    const product = products.filter(({ product }) => product.code === code);
+    if (product.length) {
+      return product[0]
+    }
+    return null
+  };
+
+  /**
+   * returns the items count
    * @returns {number}
    */
   const getItemsCount = () => {
@@ -93,17 +173,23 @@ const ShoppingCart = (pricingRules) => {
     return freebies
   };
 
-  const getPricingRules = () => {
-    return pricingRules.getAll()
+  const getProductRules = () => {
+    return pricingRules.getProductRules()
+  };
+
+  const applyPromoCode = (code) => {
+    return promoCode = code
   };
 
   return {
     add,
     getTotalPrice,
     getAllProducts,
+    getProductByCode,
     getFreebies,
     getItemsCount,
-    getPricingRules,
+    getProductRules,
+    applyPromoCode
   }
 };
 
