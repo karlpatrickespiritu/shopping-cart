@@ -4,7 +4,7 @@ const expect = require('expect.js');
 const Products = require('../../Products');
 const PricingRules = require('../../PricingRules');
 
-describe('`PricingRules.createProductRule()` unit test', function () {
+describe('`PricingRules.createProductRule()`', function () {
   it('should add an item to the shopping cart', function () {
     // create a product first
     const products = Products.initialize();
@@ -74,7 +74,7 @@ describe('`PricingRules.createProductRule()` unit test', function () {
   });
 });
 
-describe('`PricingRules.createPromoCodeRule()` unit test', function () {
+describe('`PricingRules.createPromoCodeRule()`', function () {
   it('should add an item to the shopping cart', function () {
     // create a pricing rule for this particular product
     const pricingRules = PricingRules.initialize();

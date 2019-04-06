@@ -3,7 +3,7 @@
 const expect = require('expect.js');
 const Products = require('../../Products');
 
-describe('`Products.create()` unit test', function () {
+describe('`Products.create()`', function () {
   it('should create a product item', function () {
     const products = Products.initialize();
 
@@ -23,7 +23,7 @@ describe('`Products.create()` unit test', function () {
   });
 });
 
-describe('`Products.getAll()` unit test', function () {
+describe('`Products.getAll()`', function () {
   it('should return all items', function () {
     const products = Products.initialize();
 
@@ -44,5 +44,25 @@ describe('`Products.getAll()` unit test', function () {
 
     products.create(item2);
     expect(products.getAll()).to.have.length(2);
+  });
+});
+
+describe('`Products.getProductByCode()`', function () {
+  const products = Products.initialize();
+
+  const item1 = {
+    code: "ult_small",
+    name: "Unlimited 1GB",
+    price: 24.90,
+  };
+
+  products.create(item1);
+
+  it('should return the product', function () {
+    expect(products.getProductByCode("ult_small").price).to.equal(24.90);
+  });
+
+  it('should return null if product not found', function () {
+    expect(products.getProductByCode("nope")).to.equal(null);
   });
 });

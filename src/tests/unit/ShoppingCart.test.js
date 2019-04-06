@@ -5,7 +5,7 @@ const Products = require('../../Products');
 const ShoppingCart = require('../../ShoppingCart');
 const PricingRules = require('../../PricingRules');
 
-describe('`ShoppingCart.add()` unit test', function () {
+describe('`ShoppingCart.add()`', function () {
   it('should add an item to the shopping cart', function () {
     // create product first
     const products = Products.initialize();
