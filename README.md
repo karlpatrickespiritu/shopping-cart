@@ -1,5 +1,9 @@
 # shopping-cart
 
+### Requirements
+- nodejs 8.10.0 (at least)
+- npm 5.6.0 (at least)
+
 ### How to install
 ```bash
 npm install
