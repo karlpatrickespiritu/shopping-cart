@@ -15,7 +15,11 @@ npm test
 open ./coverage/index.html
 ```
 
-Somewhere on the test logs other than the coverage, you should see something like this one for the scenarios:
+### How to check the scenarios results
+
+You can check the `./tests/integration/Scenarios.test.js` for the step by step execution of the scenarios.
+
+Also, somewhere on the test logs other than the coverage, you should see something like this one for the scenarios:
 
 ```bash
   SCENARIO #1
@@ -52,8 +56,4 @@ ult_small Unlimited 1GB $24.9 (QTY x 1)
 1gb 1 GB Data-pack $9.9 (QTY x 1)
 =======================================
 Cart Total: $ 31.32
-    ✓ should calculate the expected amounts for scenario #4
-=======================================
-Cart Total: $ 84.7
-    ✓ should calculate the expected amounts for scenario #3
 ```
