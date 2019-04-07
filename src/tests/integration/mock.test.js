@@ -1,9 +1,7 @@
 'use strict';
 
-const expect = require('expect.js');
 const Products = require('../../Products');
 const PricingRules = require('../../PricingRules');
-const ShoppingCart = require('../../ShoppingCart');
 
 function CreateProducts() {
   const products = Products.initialize();
@@ -66,7 +64,7 @@ function CreatePricingRules(products) {
     }]
   });
 
-// create pricing rule for `productMedium`
+  // create pricing rule for `productMedium`
   pricingRules.createProductRule({
     product: productMedium,
     discounts: [{
@@ -93,7 +91,7 @@ function CreatePricingRules(products) {
     }]
   });
 
-// create pricing rule for `productLarge`
+  // create pricing rule for `productLarge`
   pricingRules.createProductRule({
     product: productLarge,
     discounts: [{

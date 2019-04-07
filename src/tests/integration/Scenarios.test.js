@@ -1,7 +1,7 @@
 'use strict';
 
 const expect = require('expect.js');
-const mock = require('./mock');
+const mock = require('./mock.test');
 const ShoppingCart = require('../../ShoppingCart');
 
 // create the list of products as mock
