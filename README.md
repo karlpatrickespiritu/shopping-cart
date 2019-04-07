@@ -10,6 +10,11 @@ npm install
 npm test
 ```
 
+### How to open test coverage in a browser
+```bash
+open ./coverage/index.html
+```
+
 Somewhere on the test logs other than the coverage, you should see something like this one for the scenarios:
 
 ```bash
