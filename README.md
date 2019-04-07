@@ -45,4 +45,15 @@ ult_medium Unlimited 2GB $29.9 (QTY x 2)
 =======================================
 Cart Total: $ 84.7
     ✓ should calculate the expected amounts for scenario #3
+
+  SCENARIO #4
+Items:
+ult_small Unlimited 1GB $24.9 (QTY x 1)
+1gb 1 GB Data-pack $9.9 (QTY x 1)
+=======================================
+Cart Total: $ 31.32
+    ✓ should calculate the expected amounts for scenario #4
+=======================================
+Cart Total: $ 84.7
+    ✓ should calculate the expected amounts for scenario #3
 ```
